@@ -338,6 +338,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
         size_features_list_epith = []
         shape_features_list_iel = []
         shape_features_list_epith = []
+        mloss = torch.zeros(4, device=device)  # or torch.zeros_like(loss_items) after first batch
         for i, (imgs, targets, paths, _) in pbar:  # batch -------------------------------------------------------------
             ni = i + nb * epoch  # number integrated batches (since train start)
             imgs = imgs.to(device, non_blocking=True).float() / 255  # uint8 to float32, 0-255 to 0.0-1.0
@@ -400,13 +401,16 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                 last_opt_step = ni
 
             # Log
+            
             if RANK in [-1, 0]:
+                
                 mloss = (mloss * i + loss_items) / (i + 1)  # update mean losses
                 # degpr_loss.append(mloss[-1].detach().cpu().numpy())
                 # print(degpr_loss)
                 mem = f'{torch.cuda.memory_reserved() / 1E9 if torch.cuda.is_available() else 0:.3g}G'  # (GB)
-                pbar.set_description(('%10s' * 2 + '%10.4g' * 8) % (
+                pbar.set_description(('%10s' * 2 + '%10.4g' * 6) % (
                     f'{epoch}/{epochs - 1}', mem, *mloss, targets.shape[0], imgs.shape[-1]))
+
                 callbacks.run('on_train_batch_end', ni, model, imgs, targets, paths, plots, opt.sync_bn)
             # end batch ------------------------------------------------------------------------------------------------
         # print(len(intensity_features_list), len(size_features_list), len(shape_fetaures_list))
