@@ -1,6 +1,10 @@
-train: D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/train/
-val:  D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/val/
-test: D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/test/
+# train: D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/train/
+# val:  D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/val/
+# test: D:/VS Code Projects/TumAI/data/degpr_yolo_training_data/images/test/
+train: /content/drive/MyDrive/Tum_ai_neuron_segmenation/tumai_DeGPR/degpr_yolo_training_data/images/train/
+val:  /content/drive/MyDrive/Tum_ai_neuron_segmenation/tumai_DeGPR/degpr_yolo_training_data/images/val/
+test: /content/drive/MyDrive/Tum_ai_neuron_segmenation/tumai_DeGPR/degpr_yolo_training_data/images/test/
+
 
 # number of classes
 nc: 1
